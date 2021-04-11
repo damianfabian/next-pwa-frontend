@@ -1,0 +1,40 @@
+import { Meta, Story, ArgsTable, Canvas } from '@storybook/addon-docs/blocks';
+import Button from '.';
+
+<Meta title="Button" argTypes={{
+  type: {
+     options: ['default', 'primary', 'secundary', 'info', 'alert', 'dark', 'link'],
+     control: { type: 'select' },
+     name: 'type',
+     description: 'Type of button'
+   },
+   children: {
+     description: 'Content to be render on the button'
+   },
+   onClick: { action: 'clicked', description: 'Function to be trigger on click' },
+ }
+} 
+component={Button} />
+
+# Button
+<p>This is a button component to use. You can pass a type or an action.</p>
+
+
+## Type of Buttons
+<Canvas>
+  <Button type="default">Default Button</Button>
+  <Button type="primary">Primary Button</Button>
+  <Button type="secundary">Secundary Button</Button>
+  <Button type="info">Info Button</Button>
+  <Button type="alert">Alert Button</Button>
+  <Button type="dark">Dark Button</Button>
+  <Button type="link">Link Button</Button>
+</Canvas>
+
+## Actions
+<Canvas>
+  <Button type="primary" onClick={e => alert('clicked')}>Click me!</Button>
+</Canvas>
+
+
+

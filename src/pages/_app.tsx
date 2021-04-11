@@ -6,6 +6,7 @@ import Footer from 'components/footer'; //pending
 import NotificationList from 'components/notificationList'; // migrate to tailwind
 import store from 'stores';
 import 'styles/base.css';
+import 'styles/theme.css';
 import { Provider } from 'react-redux';
 import { statusBarStyle } from 'config';
 import { AppProps } from 'next/app';

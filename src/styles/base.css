@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.dark {
+    @apply hover:bg-gray-400;
+    @apply bg-gray-500;
+    @apply text-white;
+}
+.primary {
+    @apply hover:bg-red-400;
+    @apply bg-red-500;
+    @apply text-white;
+}
+.secundary {
+    @apply hover:bg-green-500;
+    @apply bg-green-600;
+    @apply text-white;
+}
+.alert {
+    @apply bg-yellow-400;
+    @apply text-black;
+    @apply hover:bg-yellow-500;
+}
+.info {
+    @apply bg-blue-600;
+    @apply text-white;
+    @apply hover:bg-blue-500;
+}
+.normal {
+    @apply bg-gray-50;
+}
+.link {
+    @apply text-blue-400;
+    border: none;
+}
