@@ -10,6 +10,7 @@
     "storybook:build": "build-storybook"
   },
   "dependencies": {
+    "@material-ui/icons": "^4.11.2",
     "@svgr/webpack": "^5.5.0",
     "jstoxml": "^2.0.4",
     "next": "latest",
@@ -18,21 +19,20 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.3",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.2.3"
   },
   "devDependencies": {
+    "@material-ui/core": "^4.11.3",
     "@storybook/addon-actions": "^6.2.7",
     "@storybook/addon-essentials": "^6.2.7",
     "@storybook/addon-links": "^6.2.7",
     "@storybook/react": "^6.2.7",
-    "@tailwindcss/forms": "^0.3.2",
-    "@tailwindcss/jit": "0.1.3",
     "@types/node": "^12.12.21",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "@types/styled-components": "^5.1.9",
     "autoprefixer": "^10.0.4",
-    "postcss": "^8.1.10",
-    "tailwindcss": "^2.0.2",
     "terser-webpack-plugin": "^5.1.1",
     "typescript": "^4.2.3"
   },

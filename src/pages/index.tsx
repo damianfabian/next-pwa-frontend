@@ -1,77 +1,127 @@
-import Button from 'components/button'
-import Head from 'next/head'
+import Button from '@material-ui/core/Button';
+import { Layout } from 'components/layout';
+import Head from 'next/head';
+import { Fragment, ReactNode, useState } from 'react';
+import styled from 'styled-components';
+import {
+	Divider,
+	Drawer,
+	List,
+	ListItem,
+	ListItemIcon,
+	ListItemProps,
+	ListItemText,
+} from '@material-ui/core';
+import { Inbox, Drafts } from '@material-ui/icons';
 
 export default function Home() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+	const headerContent: ReactNode = (
+		<HeaderWrapper>
+			<h1>Let's celebrate all together!</h1>
+			<p>Bring feelings close</p>
+		</HeaderWrapper>
+	);
 
-      <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
+	const [isDrawerOpen, setDrawerOpen] = useState(false);
+	return (
+		<Fragment>
+			<Head>
+				<title>Create Next App</title>
+				<link rel='icon' href='/favicon.ico' />
+			</Head>
 
-        <div className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-            pages/index.js
-          </code>
-          <Button type="primary">Aceptar</Button>  
-        </div>
+			<Layout header={headerContent}>
+				<ImageWrapper>
+					<Image src='/assets/home-image.png' alt='MyCompany' />
+				</ImageWrapper>
 
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-
-
-        
-      
-      </main>
-
-    </div>
-  )
+				<ActionWrapper>
+					<Button variant='contained' color='primary'>
+						Sign In
+					</Button>
+					<Button
+						variant='contained'
+						onClick={() => setDrawerOpen(!isDrawerOpen)}
+					>
+						Create an account
+					</Button>
+					<Button color='primary'>Forgot password?</Button>
+				</ActionWrapper>
+			</Layout>
+			<Drawer open={isDrawerOpen} onClose={() => setDrawerOpen(!isDrawerOpen)}>
+				<ListStyled component='nav' aria-label='main mailbox folders'>
+					<ListItem button>
+						<ListItemIcon>
+							<Inbox />
+						</ListItemIcon>
+						<ListItemText primary='Inbox' />
+					</ListItem>
+					<ListItem button>
+						<ListItemIcon>
+							<Drafts />
+						</ListItemIcon>
+						<ListItemText primary='Drafts' />
+					</ListItem>
+				</ListStyled>
+				<Divider />
+				<ListStyled
+					component='nav'
+					aria-label='secondary mailbox folders'
+				>
+					<ListItem button>
+						<ListItemText primary='Trash' />
+					</ListItem>
+					<ListItemLink href='#simple-list'>
+						<ListItemText primary='Spam' />
+					</ListItemLink>
+				</ListStyled>
+			</Drawer>
+		</Fragment>
+	);
 }
+
+const ActionWrapper = styled.div`
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin: 1rem;
+	margin-top: 2rem;
+	gap: 1rem;
+`;
+
+const ImageWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 2rem;
+`;
+
+const Image = styled.img`
+	display: block;
+	width: 40vh;
+`;
+
+const HeaderWrapper = styled.div`
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+
+	h1 {
+		font-size: var(--font-size-h1);
+		margin: 0.5rem;
+	}
+	p {
+		color: var(--colors-gray);
+		margin: 0.5rem;
+		font-size: var(--font-size-subtitle);
+	}
+`;
+
+function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
+	return <ListItem button component='a' {...props} />;
+}
+
+const ListStyled: typeof List = styled(List)`
+	width: 70vw;
+`;

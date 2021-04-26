@@ -1,11 +1,12 @@
 import * as React from 'react';
 
-interface IHeaderProps {
-    company: string
+interface IFooterProps {
+    company: string,
+    className: string
 }
 
-const Header: React.FunctionComponent<IHeaderProps> = (props) => {
-  return <h1>{props.company}</h1>;
+const Footer: React.FunctionComponent<IFooterProps> = (props) => {
+  return <footer className={props.className}><h1>{props.company}</h1></footer>;
 };
 
-export default Header;
+export default Footer;

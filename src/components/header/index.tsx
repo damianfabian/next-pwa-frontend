@@ -1,11 +1,16 @@
 import * as React from 'react';
 
 interface IHeaderProps {
-    title: string
+	children: any;
+	className?: string;
 }
 
 const Header: React.FunctionComponent<IHeaderProps> = (props) => {
-  return <h1>{props.title}</h1>;
+	return (
+		<header className={props.className}>
+			{props.children}
+		</header>
+	);
 };
 
 export default Header;
