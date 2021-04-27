@@ -1,10 +1,8 @@
 # Roadmap
 
-- react-query (HTTP Client For React)
-- react server components
-- vue
-- grid UI
-- webAssembly background effect (*)
+- redux (Implement an example between Login, Home, Product View)
 - eslint
 - unit test
+- react-query (HTTP Client For React)
 - e2e (testCafe)
+- react server components

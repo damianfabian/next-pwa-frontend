@@ -12,5 +12,9 @@ module.exports = withPWA({
         disable: process.env.NODE_ENV === 'development',
         register: true,
     },
-    pageExtensions: ['ts', 'tsx']
+    pageExtensions: ['ts', 'tsx'],
+    i18n: {
+        locales: ['en', 'nl'],
+        defaultLocale: 'en'
+      },
 })

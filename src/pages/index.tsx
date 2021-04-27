@@ -13,12 +13,14 @@ import {
 	ListItemText,
 } from '@material-ui/core';
 import { Inbox, Drafts } from '@material-ui/icons';
+import { useTranslation } from 'react-i18next';
 
 export default function Home() {
+	const { t, i18n } = useTranslation();
 	const headerContent: ReactNode = (
 		<HeaderWrapper>
-			<h1>Let's celebrate all together!</h1>
-			<p>Bring feelings close</p>
+			<h1>{t("Let's celebrate all together!")}</h1>
+			<p>{t('Bring feelings close')}</p>
 		</HeaderWrapper>
 	);
 
@@ -26,7 +28,7 @@ export default function Home() {
 	return (
 		<Fragment>
 			<Head>
-				<title>Create Next App</title>
+				<title>{t('Welcome to React')}</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
@@ -36,19 +38,31 @@ export default function Home() {
 				</ImageWrapper>
 
 				<ActionWrapper>
-					<Button variant='contained' color='primary'>
-						Sign In
+					<Button
+						variant='contained'
+						color='primary'
+						onClick={() => i18n.changeLanguage('nl')}
+					>
+						{t('Sign In')}
 					</Button>
 					<Button
 						variant='contained'
 						onClick={() => setDrawerOpen(!isDrawerOpen)}
 					>
-						Create an account
+						{t('Create an account')}
 					</Button>
-					<Button color='primary'>Forgot password?</Button>
+					<Button
+						color='primary'
+						onClick={() => i18n.changeLanguage('en')}
+					>
+						{t('Forgot password?')}
+					</Button>
 				</ActionWrapper>
 			</Layout>
-			<Drawer open={isDrawerOpen} onClose={() => setDrawerOpen(!isDrawerOpen)}>
+			<Drawer
+				open={isDrawerOpen}
+				onClose={() => setDrawerOpen(!isDrawerOpen)}
+			>
 				<ListStyled component='nav' aria-label='main mailbox folders'>
 					<ListItem button>
 						<ListItemIcon>

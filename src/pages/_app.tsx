@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { ThemeProvider } from 'contexts/theme';
 import NotificationList from 'components/notificationList';
@@ -7,8 +7,22 @@ import 'styles/theme.css';
 import { Provider } from 'react-redux';
 import { statusBarStyle } from 'config';
 import { AppProps } from 'next/app';
+import  { Init } from '../i18n';
+import { LinearProgress } from '@material-ui/core';
+import { useRouter } from 'next/dist/client/router';
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
+	const router = useRouter();
+	const [lngInit, setLngInit] = useState(false);
+
+	useEffect(() => {
+		Init(router.locale).then(() => setLngInit(true));
+	}, []);
+
+	if (!lngInit) {
+		return <LinearProgress />;
+	}
+
 	return (
 		<>
 			<Head>
@@ -51,4 +65,4 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
 			</Provider>
 		</>
 	);
-};
+}
