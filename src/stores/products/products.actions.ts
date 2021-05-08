@@ -1,4 +1,4 @@
-import { ProductArray } from 'interfaces';
+import { ProductArray } from 'types';
 
 export const UPDATE_PRODUCTS = 'update-products';
 export const UPDATE_STATE = 'update-state';

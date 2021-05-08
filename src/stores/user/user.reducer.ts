@@ -1,12 +1,14 @@
-import { User, UserActions, UPDATE_USER } from './user.actions';
+import { UserType } from 'types';
+import { UserActions, UPDATE_USER, INVALID_USER } from './user.actions';
 
-type UserState = User;
+export type UserState =  {
+    isValid : Boolean;
+    user?: UserType;
+    error?: string;
+};
 
 const initialState: UserState = {
-    name: '',
-    avatar_url: '',
-    bio: '',
-    followers: null
+    isValid: false
 };
 
 const userStore = (
@@ -14,26 +16,26 @@ const userStore = (
     action: UserActions
 ): UserState => {
     switch (action.type) {
-    case UPDATE_USER: {
-        const {
-            user: {
-                name,
-                avatar_url,
-                bio,
-                followers
-            }
-        } = action;
+        case UPDATE_USER: {
+            const { user } = action;
 
-        return {
-            name,
-            avatar_url,
-            bio,
-            followers
-        };
-    }
+            return {
+                user,
+                isValid: true
+            };
+        }
 
-    default:
-        return state;
+        case INVALID_USER: {
+
+            return {
+                ...state,
+                isValid: false,
+                error: action.error
+            };
+        }
+
+        default:
+            return state;
     }
 };
 

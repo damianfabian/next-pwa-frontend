@@ -14,15 +14,20 @@ import {
 } from '@material-ui/core';
 import { Inbox, Drafts } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
+import { useRouter } from 'next/router';
 
 export default function Home() {
 	const { t, i18n } = useTranslation();
+	const router = useRouter();
+
 	const headerContent: ReactNode = (
 		<HeaderWrapper>
 			<h1>{t("Let's celebrate all together!")}</h1>
 			<p>{t('Bring feelings close')}</p>
 		</HeaderWrapper>
 	);
+
+	const goToLogin = () => router.push('/login');
 
 	const [isDrawerOpen, setDrawerOpen] = useState(false);
 	return (
@@ -41,14 +46,11 @@ export default function Home() {
 					<Button
 						variant='contained'
 						color='primary'
-						onClick={() => i18n.changeLanguage('nl')}
+						onClick={goToLogin}
 					>
 						{t('Sign In')}
 					</Button>
-					<Button
-						variant='contained'
-						onClick={() => setDrawerOpen(!isDrawerOpen)}
-					>
+					<Button variant='contained' onClick={() => 0}>
 						{t('Create an account')}
 					</Button>
 					<Button
@@ -57,6 +59,20 @@ export default function Home() {
 					>
 						{t('Forgot password?')}
 					</Button>
+					<div>
+						<Button
+							color='primary'
+							onClick={() => i18n.changeLanguage('nl')}
+						>
+							{t('NL')}
+						</Button>
+						<Button
+							color='primary'
+							onClick={() => i18n.changeLanguage('en')}
+						>
+							{t('EN')}
+						</Button>
+					</div>
 				</ActionWrapper>
 			</Layout>
 			<Drawer

@@ -3,7 +3,7 @@ import Footer from 'components/footer';
 import * as React from 'react';
 
 interface ILayoutProps {
-  children: React.ReactNode[];
+  children: React.ReactNode[] | React.ReactNode;
   header?: React.ReactNode;
   className?: string;
   hasFooter?: boolean;

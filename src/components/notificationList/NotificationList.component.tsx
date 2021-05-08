@@ -2,6 +2,7 @@ import React, { CSSProperties } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../stores';
 import Notification from './notification';
+import styled from 'styled-components';
 // import styles from './NotificationList.module.scss';
 
 // const { notificationList } = styles;
@@ -14,8 +15,7 @@ export default function NotificationList(): JSX.Element {
     const cssVariables = { '--animation-duration': `${ANIMATION_DURATION}ms` } as CSSProperties;
 
     return (
-        <ul
-          className='notifications'
+        <List
           style={ cssVariables }
         >
             {
@@ -29,6 +29,13 @@ export default function NotificationList(): JSX.Element {
                     )
                 )
             }
-        </ul>
+        </List>
     );
 }
+
+const List = styled.ul`
+position: absolute;
+top: 0;
+left: 0;
+`;
+

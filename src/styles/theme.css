@@ -6,4 +6,9 @@ body {
     --font-size-h3: 1.2rem;
     --font-size-h4: 1.1rem;
     --font-size-subtitle: var(--font-size-h3);
+    margin: 0;
+}
+
+body * {
+    box-sizing: border-box;
 }

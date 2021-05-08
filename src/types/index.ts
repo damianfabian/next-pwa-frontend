@@ -3,11 +3,9 @@
 // example, to import the interface below do:
 //
 import { ProductArray, ProductAttribute, ProductFooterProps, ProductHeaderProps, ProductItemProps, ProductListProps } from './product';
-
-export type User = {
-  id: number
-  name: string
-}
+import { UserType } from './user';
+import { ErrorType } from './error';
+import { ResponseType } from './service';
 
 export type {
   ProductArray,
@@ -15,5 +13,8 @@ export type {
   ProductFooterProps, 
   ProductHeaderProps, 
   ProductItemProps, 
-  ProductListProps
+  ProductListProps,
+  UserType,
+  ErrorType,
+  ResponseType
 }

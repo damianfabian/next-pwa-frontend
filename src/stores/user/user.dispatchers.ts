@@ -1,11 +1,22 @@
 import { AppThunk } from 'stores';
-import { executeGet } from 'utils/request';
-import { updateUser } from './user.actions';
+import { authenticate, getUser } from 'services/userService';
+import { updateUser, invalidUser } from './user.actions';
+import { UserType } from 'types';
 
-export const getUser = (username: string): AppThunk => (
+export const loginDispatcher = (username: string, password: string): AppThunk => (
     async dispatch => {
-        const user = await executeGet(`https://api.github.com/users/${username}`);
-
-        dispatch(updateUser(user));
+        try {
+            const user = await authenticate(username, password);
+            if("error" in user) {
+                dispatch(invalidUser(user.error!.message));
+            } else {
+                dispatch(updateUser(user as UserType));
+            }
+        } catch (e) {
+            dispatch(invalidUser('Username does not exist'))
+        }
+        
     }
 );
+
+// search for a redux-form lib?

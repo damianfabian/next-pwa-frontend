@@ -1,4 +1,4 @@
-import { ProductArray } from 'interfaces';
+import { ProductArray } from 'types';
 import { ProductActions, UPDATE_PRODUCTS, UPDATE_STATE } from './products.actions';
 
 interface ProductsState {
