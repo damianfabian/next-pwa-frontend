@@ -7,7 +7,8 @@
     "start": "next start",
     "type-check": "tsc",
     "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook"
+    "storybook:build": "build-storybook",
+    "test": "jest"
   },
   "dependencies": {
     "@material-ui/icons": "^4.11.2",
@@ -32,11 +33,18 @@
     "@storybook/addon-essentials": "^6.2.7",
     "@storybook/addon-links": "^6.2.7",
     "@storybook/react": "^6.2.7",
+    "@testing-library/dom": "^7.31.0",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
     "@types/node": "^12.12.21",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
     "@types/styled-components": "^5.1.9",
     "autoprefixer": "^10.0.4",
+    "babel-jest": "^26.6.3",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.6.3",
+    "jest-dom": "^4.0.0",
     "terser-webpack-plugin": "^5.1.1",
     "typescript": "^4.2.3"
   },
