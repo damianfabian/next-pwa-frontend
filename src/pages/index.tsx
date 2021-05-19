@@ -15,19 +15,22 @@ import {
 import { Inbox, Drafts } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
+import LangToolbar from 'shared/langToolbar';
 
 export default function Home() {
-	const { t, i18n } = useTranslation();
+	const { t } = useTranslation();
 	const router = useRouter();
 
 	const headerContent: ReactNode = (
 		<HeaderWrapper>
-			<h1>{t("Let's celebrate all together!")}</h1>
+			<h2>{t("Let's celebrate all together!")}</h2>
 			<p>{t('Bring feelings close')}</p>
 		</HeaderWrapper>
 	);
 
 	const goToLogin = () => router.push('/login');
+	const goToRegister = () => router.push('/register');
+
 
 	const [isDrawerOpen, setDrawerOpen] = useState(false);
 	return (
@@ -50,29 +53,10 @@ export default function Home() {
 					>
 						{t('Sign In')}
 					</Button>
-					<Button variant='contained' onClick={() => 0}>
+					<Button variant='contained' onClick={goToRegister}>
 						{t('Create an account')}
 					</Button>
-					<Button
-						color='primary'
-						onClick={() => i18n.changeLanguage('en')}
-					>
-						{t('Forgot password?')}
-					</Button>
-					<div>
-						<Button
-							color='primary'
-							onClick={() => i18n.changeLanguage('nl')}
-						>
-							{t('NL')}
-						</Button>
-						<Button
-							color='primary'
-							onClick={() => i18n.changeLanguage('en')}
-						>
-							{t('EN')}
-						</Button>
-					</div>
+					<LangToolbar />
 				</ActionWrapper>
 			</Layout>
 			<Drawer
@@ -123,7 +107,7 @@ const ImageWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	margin-top: 2rem;
+	// margin-top: 1rem;
 `;
 
 const Image = styled.img`
@@ -136,9 +120,10 @@ const HeaderWrapper = styled.div`
 	justify-content: center;
 	flex-direction: column;
 	text-align: center;
+	padding: 1rem;
 
-	h1 {
-		font-size: var(--font-size-h1);
+	h2 {
+		font-size: var(--font-size-h2);
 		margin: 0.5rem;
 	}
 	p {

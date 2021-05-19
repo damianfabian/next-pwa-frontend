@@ -9,13 +9,11 @@ import thunk, { ThunkAction } from 'redux-thunk';
 import { getWindowProperty } from 'utils/browser';
 import { user } from 'stores/user';
 import { notifications } from 'stores/notifications';
-import { pages } from 'stores/pages';
 import { products } from 'stores/products';
 
-const reducers = combineReducers({
+export const reducers = combineReducers({
     user,
     notifications,
-    pages,
     products
 });
 
@@ -26,8 +24,8 @@ export type AppThunk<ReturnType = void> = ThunkAction<
     unknown,
     Action<string>
 >
-
-const middleware = [applyMiddleware(thunk)];
+export type StoreType = ReturnType<typeof initStore>;
+export const middleware = [applyMiddleware(thunk)];
 const isDevMode = process.env.NODE_ENV === 'development';
 const devtools = isDevMode && (getWindowProperty() as any).__REDUX_DEVTOOLS_EXTENSION__;
 
@@ -35,7 +33,9 @@ if (devtools) {
     middleware.push(devtools());
 }
 
-export default createStore(
-    reducers,
-    compose(...middleware)
-);
+export function initStore() {
+    return createStore(
+        reducers,
+        compose(...middleware)
+    );
+};

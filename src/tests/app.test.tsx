@@ -17,17 +17,25 @@ describe("App", () => {
     expect(
       screen.getByRole("heading", { name: "Let's celebrate all together!" })
     ).toBeInTheDocument();
+  });
+
+  it("renders all the buttons", () => {
+    render(<App />);
     expect(
         screen.getByRole("button", { name: "Sign In" })
     ).toBeInTheDocument();
     expect(
         screen.getByRole("button", { name: "Create an account" })
     ).toBeInTheDocument();
-    expect(
-        screen.getByRole("button", { name: "Forgot password?" })
-    ).toBeInTheDocument();
+  });
+  it("renders all the buttons", () => {
+    render(<App />);
 
     fireEvent.click(screen.getByText(/Sign In/i))
-    expect(mockRouter.push).toHaveBeenCalledWith('/login')
+    expect(mockRouter.push).toHaveBeenCalledWith('/login');
+
+    fireEvent.click(screen.getByText(/Create an account/i))
+    expect(mockRouter.push).toHaveBeenCalledWith('/register');
+
   });
 });

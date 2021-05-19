@@ -7,3 +7,14 @@
  * https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html
  */
 export const statusBarStyle = 'black-translucent';
+
+export const languages = [
+    {
+        display: 'EN',
+        code: 'EN',
+    },
+    {
+        display: 'NL',
+        code: 'NL',
+    },
+]

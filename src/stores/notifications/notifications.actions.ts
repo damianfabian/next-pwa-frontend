@@ -1,31 +1,33 @@
-export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION';
+export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
 export const HIDE_NOTIFICATION = 'HIDE_NOTIFICATION';
 
 export type NotificationId = number;
 
 export interface Notification {
     message: string,
+    type?: 'error' | 'info' | 'warning' | 'success',
+    duration?: number,
     isExpirable: boolean
 }
 
-export interface ShowNotificationAction {
-    type: typeof SHOW_NOTIFICATION,
+export interface AddNotificationAction {
+    type: typeof ADD_NOTIFICATION,
     notification: Notification
 }
 
-export interface HideNotificationAction {
+export interface HideNotificationsAction {
     type: typeof HIDE_NOTIFICATION,
     notificationId: NotificationId
 }
 
-export type NotificationsActions = ShowNotificationAction | HideNotificationAction;
+export type NotificationsActions = AddNotificationAction | HideNotificationsAction;
 
-export const showNotification = (notification: Notification): ShowNotificationAction => ({
-    type: SHOW_NOTIFICATION,
+export const addNotification = (notification: Notification): AddNotificationAction => ({
+    type: ADD_NOTIFICATION,
     notification
 });
 
-export const hideNotification = (notificationId: NotificationId): HideNotificationAction => ({
+export const hideNotification = (notificationId: NotificationId): HideNotificationsAction => ({
     type: HIDE_NOTIFICATION,
     notificationId
 });

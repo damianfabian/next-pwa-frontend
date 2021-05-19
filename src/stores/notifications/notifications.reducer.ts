@@ -2,7 +2,7 @@ import {
     Notification,
     NotificationId,
     NotificationsActions,
-    SHOW_NOTIFICATION,
+    ADD_NOTIFICATION,
     HIDE_NOTIFICATION
 } from './notifications.actions';
 
@@ -17,27 +17,27 @@ const notificationStore = (
     action: NotificationsActions
 ): NotificationsState => {
     switch (action.type) {
-    case SHOW_NOTIFICATION: {
-        const { notification } = action;
- 
-        return {
-            ...state,
-            [Date.now()]: notification
-        };
-    }
+        case ADD_NOTIFICATION: {
+            const { notification } = action;
 
-    case HIDE_NOTIFICATION: {
-        const { notificationId } = action;
-        const {
-            [notificationId]: notification,
-            ...notifications
-        } = state;
+            return {
+                ...state,
+                [Date.now()]: notification
+            };
+        }
 
-        return notifications;
-    }
+        case HIDE_NOTIFICATION: {
+            const { notificationId } = action;
+            const {
+                [notificationId]: notification,
+                ...notifications
+            } = state;
 
-    default:
-        return state;
+            return notifications;
+        }
+
+        default:
+            return state;
     }
 };
 

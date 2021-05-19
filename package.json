@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
     "@svgr/webpack": "^5.5.0",
     "i18next": "^20.2.2",
     "i18next-browser-languagedetector": "^6.1.0",

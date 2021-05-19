@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { ThemeProvider } from 'contexts/theme';
-import NotificationList from 'components/notificationList';
-import store from 'stores';
+import NotificationList from 'shared/notificationList';
+import { initStore } from 'stores';
 import 'styles/theme.css';
 import { Provider } from 'react-redux';
 import { statusBarStyle } from 'config';
@@ -12,6 +12,7 @@ import { LinearProgress } from '@material-ui/core';
 import { useRouter } from 'next/dist/client/router';
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
+	const store = initStore();
 	const router = useRouter();
 	const [lngInit, setLngInit] = useState(false);
 
