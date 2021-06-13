@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'stores';
 import styled from 'styled-components';
-import Notification from 'components/notification';
-import { hideNotification, NotificationId } from 'stores/notifications';
+import Notification, { NotificationId } from 'components/notification';
+import { removeNotification, notiSelector } from './notificationSlice';
 import { useCallback, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'hooks/store';
 
 export const ANIMATION_DURATION = 500;
 export const NOTIFICATION_TTL = 5000;
@@ -12,13 +11,13 @@ const useHideNotification = (
 	notificationId: NotificationId,
 	setIsClosing: (isClosing: boolean) => void
 ): (() => void) => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	return () => {
 		setIsClosing(true);
 
 		setTimeout(() => {
-			dispatch(hideNotification(notificationId));
+			dispatch(removeNotification(notificationId));
 		}, ANIMATION_DURATION);
 	};
 };
@@ -46,12 +45,13 @@ const useIsClosing = (
 	return [isClosing, hideNotification];
 };
 
-export default function NotificationList(): JSX.Element {
-	const notifications = useSelector(
-		(state: RootState) => state.notifications
-	);
-	
+type NotificationProps = {
+	animationTime?: number;
+}
 
+export default function NotificationList({ animationTime = ANIMATION_DURATION} : NotificationProps): JSX.Element {
+	const notifications = useAppSelector(notiSelector);
+	
 	const handleClick = (
 		id: number,
 		isExpirable: boolean,
@@ -69,6 +69,7 @@ export default function NotificationList(): JSX.Element {
 							key={notificationId}
 							notification={notification}
 							notificationId={+notificationId}
+							animationTime={animationTime}
 							generateHandle={() =>
 								handleClick(
 									+notificationId,

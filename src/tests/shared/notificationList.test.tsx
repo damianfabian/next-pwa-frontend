@@ -1,26 +1,23 @@
 import React from 'react';
-import Notification from '../../components/notification';
+import Notification, { NotificationProps } from 'components/notification';
 import { testRender, mockStore } from 'tests/utils/storeWrapper';
-import { addNotification } from 'stores/notifications';
+import { add } from 'features/notifications/notificationSlice';
 import {
 	fireEvent,
 	waitFor,
 	waitForElementToBeRemoved,
 } from '@testing-library/dom';
-import { StoreType } from 'stores';
-import Component from 'shared/notificationList';
+import { StoreType } from 'store';
+import Component from 'features/notifications/NotificationList.component';
 
-let spyHideNotification = {};
+let mockSpyHideNotification : Record<string, () => void> = {};
 
 jest.mock('components/notification', () =>
 	jest.fn((props) => {
 		const [isClosing, onClose] = props.generateHandle();
-		spyHideNotification[props.notification.message] = onClose;
+		mockSpyHideNotification[props.notification.message] = onClose;
 		return (
-			<div
-				role='alert'
-				data-testid={`alert-${props.notificationId}`}
-			>
+			<div role='alert' data-testid={`alert-${props.notificationId}`}>
 				{props.notification.message}
 				<button title='Close' onClick={onClose}>
 					Close
@@ -32,46 +29,44 @@ jest.mock('components/notification', () =>
 
 describe('Notifications Shared Component', () => {
 	let store: StoreType;
+	let spyDispatch: jest.SpyInstance;
 
-	beforeAll(() => {
-		store = mockStore();
-	});
 	beforeEach(() => {
+		store = mockStore();
 		jest.clearAllMocks();
 		jest.resetModules();
+		spyDispatch = jest.spyOn(store, 'dispatch');
 	});
 
 	it('renders without crashing', () => {
-		const store = mockStore();
 		testRender(<Component />, { store });
 	});
 
 	it('renders a notification', () => {
 		const { getByTestId } = testRender(<Component />, { store });
 
-		const action = addNotification({
+		const action = add({
 			message: 'Test1',
 			isExpirable: false,
 		});
 		store.dispatch(action);
 
-		expect(store.dispatch).toHaveBeenCalledWith(action);
+		expect(spyDispatch).toHaveBeenCalledWith(action);
 		expect(getByTestId('alert-', { exact: false })).toBeInTheDocument();
 	});
 
 	it('renders a notification with close event', async (done) => {
-		const store = mockStore();
 		const { getByTitle, queryByText } = testRender(<Component />, {
 			store,
 		});
 
-		const action = addNotification({
+		const action = add({
 			message: 'Test2',
 			isExpirable: false,
 		});
 		store.dispatch(action);
 
-		expect(store.dispatch).toHaveBeenCalledWith(action);
+		expect(spyDispatch).toHaveBeenCalledWith(action);
 		expect(queryByText('Test2')).toBeInTheDocument();
 
 		fireEvent.click(getByTitle(/Close/i));
@@ -84,19 +79,18 @@ describe('Notifications Shared Component', () => {
 	it('renders a notification with auto close default duration', async () => {
 		jest.setTimeout(8000);
 
-		const store = mockStore();
 
 		const { queryByText } = testRender(<Component />, {
 			store,
 		});
 
-		const action = addNotification({
+		const action = add({
 			message: 'Test3',
 			isExpirable: true,
 		});
 		store.dispatch(action);
 
-		expect(store.dispatch).toHaveBeenCalledWith(action);
+		expect(spyDispatch).toHaveBeenCalledWith(action);
 
 		expect(queryByText('Test3')).toBeInTheDocument();
 		await waitForElementToBeRemoved(() => queryByText('Test3'), {
@@ -106,13 +100,12 @@ describe('Notifications Shared Component', () => {
 	});
 
 	it('renders a notification with auto close custom duration', async () => {
-		const store = mockStore();
 
 		const { queryByText } = testRender(<Component />, {
 			store,
 		});
 
-		const action = addNotification({
+		const action = add({
 			message: 'Test4',
 			isExpirable: true,
 			type: 'warning',
@@ -120,7 +113,7 @@ describe('Notifications Shared Component', () => {
 		});
 		store.dispatch(action);
 
-		expect(store.dispatch).toHaveBeenCalledWith(action);
+		expect(spyDispatch).toHaveBeenCalledWith(action);
 
 		expect(queryByText('Test4')).toBeInTheDocument();
 		await waitForElementToBeRemoved(() => queryByText('Test4'), {
@@ -130,13 +123,12 @@ describe('Notifications Shared Component', () => {
 	});
 
 	it('renders a notification without changing hideNotification on render', async () => {
-		const store = mockStore();
 
 		const { getByText } = testRender(<Component />, {
 			store,
 		});
 
-		const action = addNotification({
+		const action = add({
 			message: 'Test4',
 			isExpirable: true,
 			type: 'warning',
@@ -146,9 +138,9 @@ describe('Notifications Shared Component', () => {
 
 		await waitFor(() => getByText('Test4'));
 
-		const temp1 = spyHideNotification['Test4'];
+		const temp1 = mockSpyHideNotification['Test4'];
 
-		const action2 = addNotification({
+		const action2 = add({
 			message: 'Test5',
 			isExpirable: true,
 			type: 'warning',
@@ -156,7 +148,7 @@ describe('Notifications Shared Component', () => {
 		});
 		store.dispatch(action2);
 
-		const temp2 = spyHideNotification['Test4'];
+		const temp2 = mockSpyHideNotification['Test4'];
 		await waitFor(() => getByText('Test5'));
 
 		expect(temp1 === temp2).toBeTruthy();

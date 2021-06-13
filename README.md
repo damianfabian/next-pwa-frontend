@@ -1,16 +1,50 @@
-# Roadmap
+TestApp
 
--   eslint
--   react-query (HTTP Client For React)
--   e2e (testCafe)
--   react server components
+E-commerce App to buy products
 
-## Pending Tasks
+Working On
 
--   Review stores for products
--   Review contexts folder
--   Review utils folder
--   Design login UI
--   Start Dashboard UI
--   Add storybook stories
--   add e2e tests
+-   [] Link Firebase Auth with NextJs to Redirect when non-auth
+-   [] Clean User object state
+-   [] Add register validations
+-   [] Persist Store in SessionStorage
+-   [] Add test for Login, Register and Auth.
+-   [] Add e2e for Auth Story
+
+User Stories
+
+-   [x] Firebase Auth
+-   [ ] GraphQL ProductService
+-   [ ] Prisma StatisticsService
+-   [ ] Checkout Stripe, PayPal
+
+Admin
+
+-   [ ] CRUD Products
+-   [ ] CRUD Users
+-   [ ] SEO General
+
+Stack
+
+-   [ ] Guard/ Roles
+-   [ ] Unit Test / e2e
+-   [ ] Statistics
+-   [ ] Firebase Storage
+-   [x] Redux Toolkit
+-   [ ] EN/ES Languages
+-   [ ] Eslint / Typescript / Prettier
+-   [ ] Mobile First
+-   [ ] Custom Variables
+-   [ ] RetireJS
+-   [ ] Git CI/CD - Netlify - \*\*\*\*
+-   [x] Story Components
+-   [x] Styled Components
+-   [x] NextJS
+-   [x] Material UI
+
+Optionals
+
+-   [ ] C# API for Comments
+-   [ ] RabbitMQ
+-   [ ] Redis
+-   [ ] Lamda functions

@@ -5,7 +5,7 @@
 import { ProductArray, ProductAttribute, ProductFooterProps, ProductHeaderProps, ProductItemProps, ProductListProps } from './product';
 import { UserType } from './user';
 import { ErrorType } from './error';
-import { ResponseType } from './service';
+import { ResponseType, FBUser } from './service';
 
 export type {
   ProductArray,
@@ -16,5 +16,6 @@ export type {
   ProductListProps,
   UserType,
   ErrorType,
-  ResponseType
+  ResponseType,
+  FBUser
 }

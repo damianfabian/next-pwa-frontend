@@ -8,12 +8,16 @@
     "type-check": "tsc",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
+    "@reduxjs/toolkit": "^1.6.0",
     "@svgr/webpack": "^5.5.0",
+    "firebase": "^8.6.7",
+    "firebase-admin": "^9.9.0",
     "i18next": "^20.2.2",
     "i18next-browser-languagedetector": "^6.1.0",
     "i18next-http-backend": "^1.2.1",

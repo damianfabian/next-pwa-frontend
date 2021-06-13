@@ -1,23 +1,27 @@
 import React from 'react';
-import {
-	Notification as INotification,
-	NotificationId,
-} from '../../stores/notifications';
 import Alert from '@material-ui/lab/Alert';
 import styled, { css } from 'styled-components';
 
-import { ANIMATION_DURATION } from '../../shared/notificationList';
+export type NotificationId = number;
+export interface INotification {
+    message: string,
+    type?: 'error' | 'info' | 'warning' | 'success',
+    duration?: number,
+    isExpirable: boolean
+}
 
 export type NotificationProps = {
 	notificationId: NotificationId;
 	notification: INotification;
+	animationTime: number;
 	generateHandle: () => [Boolean, () => void];
 };
 
 export default function Notification({
 	notificationId,
 	notification: { message, type = 'info' },
-	generateHandle = () => [false, () => {}]
+	generateHandle = () => [false, () => {}],
+	animationTime = 500
 }: NotificationProps): JSX.Element {
 
 	const [isClosing, onClose] = generateHandle();
@@ -33,13 +37,14 @@ export default function Notification({
 	);
 }
 
-const WrapperAlert = styled(({ isClosing, ...rest }) => <Alert {...rest} />)<{
+const WrapperAlert = styled(({ isClosing, animationTime, ...rest }) => <Alert {...rest} />)<{
 	isClosing: boolean;
+	animationTime: number;
 }>`
 	${(props) =>
 		props.isClosing &&
 		css`
-			animation: fadeOut ${ANIMATION_DURATION / 1000}s;
+			animation: fadeOut ${ props.animationTime / 1000}s;
 		`}
 
 	@keyframes fadeOut {

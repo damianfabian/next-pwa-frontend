@@ -1,17 +1,20 @@
-import { Router } from "@material-ui/icons";
+import { logout } from "features/auth/authSlice";
+import useAuth from "hooks/auth/user";
+import { useAppDispatch } from "hooks/store";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux"
-import { RootState } from "stores";
+
 
 export default function Dashboard() {
-    const user = useSelector((state: RootState) => state.user);
+    const auth = useAuth();
     const router = useRouter();
+    const dispatch = useAppDispatch();
 
-    if(!user.isValid) {
-        router.push('/login');
+    if(!auth.isLogin) {
+        return <h2>Redirecting...</h2>
     }
 
     return <div>
-        <p>{JSON.stringify(user, null, 2)}</p>
+        <h1>Welcome {auth.user?.displayName}</h1>
+        <button onClick={() => dispatch(logout())}>logOut</button>
     </div>
 }

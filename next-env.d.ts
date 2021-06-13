@@ -1,2 +1,9 @@
 /// <reference types="next" />
 /// <reference types="next/types/global" />
+API_KEY="AIzaSyCWuaXo92JU_XVh6j9oHcj5h_MD-oYTrAU"
+AUTH_DOMAIN="planox-c7beb.firebaseapp.com"
+PROJECT_ID="planox-c7beb"
+STORAGE_BUCKET="planox-c7beb.appspot.com"
+SENDER_ID=658376013625
+APP_ID="1:658376013625:web:5073ce05049d6a57e4dae8"
+MEASURMENT_ID="G-CBNJYDPGSZ"

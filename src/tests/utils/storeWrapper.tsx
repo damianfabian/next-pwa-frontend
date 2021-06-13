@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, RenderOptions } from '@testing-library/react';
-import { initStore, StoreType } from 'stores';
+import store, { initStore, StoreType } from 'store';
 import { Provider } from 'react-redux';
 
 
@@ -23,8 +23,5 @@ export function testRender(ui : React.ReactElement, { store, ...otherOpts } : Re
 }
 
 export function mockStore() {
-	const store = initStore();
-	const origDispatch = store.dispatch;
-	store.dispatch = jest.fn(origDispatch);
-	return store;
+	return initStore();
 }
