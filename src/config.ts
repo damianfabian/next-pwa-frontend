@@ -18,3 +18,5 @@ export const languages = [
         code: 'NL',
     },
 ]
+
+export const REDIRECT_ROUTE_UNAUTHENTICATED = '/login';

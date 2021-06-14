@@ -4,7 +4,7 @@ E-commerce App to buy products
 
 Working On
 
--   [] Link Firebase Auth with NextJs to Redirect when non-auth
+-   [X] Link Firebase Auth with NextJs to Redirect when non-auth
 -   [] Clean User object state
 -   [] Add register validations
 -   [] Persist Store in SessionStorage

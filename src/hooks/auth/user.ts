@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "hooks/store";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FBUser } from "types";
+import { REDIRECT_ROUTE_UNAUTHENTICATED } from "config";
 import db from "utils/db/client";
 
 const useAuth = () => {
@@ -11,15 +12,10 @@ const useAuth = () => {
     const auth = useAppSelector(authSelector);
 
     useEffect(() => {
-        if(!auth.isLogin) {
-            router.push('/login');
-        }
-    }, [auth.user]);
-
-    useEffect(() => {
         const unsubscribe = db.auth().onAuthStateChanged(user => {
             if(!user && auth.user) {
                 dispatch(logout());
+                router.push(REDIRECT_ROUTE_UNAUTHENTICATED);
             } else if(user && auth.user !== user) {
                 dispatch(setUser(user as FBUser));
             }

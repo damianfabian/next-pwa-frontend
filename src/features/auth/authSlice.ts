@@ -3,6 +3,7 @@ import { addNotification } from 'features/notifications/notificationSlice';
 import { authenticate, closeSession, register, updateProfile } from 'services/userService';
 import { AppThunk, RootState } from 'store';
 import { ErrorType, FBUser, UserType } from 'types';
+import nookies from 'nookies';
 
 export type UserState = {
     isLogin: Boolean;
@@ -45,7 +46,12 @@ export const login = (email: string, password: string): AppThunk => async (dispa
             dispatch(onError(user.error!.message));
             dispatch(addNotification({ message: user.error!.message, isExpirable: true }));
         } else {
-            dispatch(setUser(user as FBUser));
+            const tempUser = user as FBUser;
+            tempUser.getIdToken().then(token => {
+                nookies.set(undefined, 'token', token, { path: '/'});
+            }); 
+            
+            dispatch(setUser(tempUser));
         }
     } catch (e) {
         const message = 'Email does not exist';
@@ -77,6 +83,7 @@ export const singUp = (userInfo: UserType): AppThunk => async (dispatch) => {
 export const logout = (): AppThunk => async (dispatch) => {
     try {
         const res = await closeSession();
+        nookies.set(undefined, 'token', '', { path: '/'});
         dispatch(logoff());
     } catch (e) {
         const message = 'Error login out';

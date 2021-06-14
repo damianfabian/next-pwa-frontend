@@ -1,0 +1,45 @@
+# Authentication
+
+Here you can find an explication of how the Authentication process works on this App and 
+how is the workflow to be login and logout. If you have any question or there is something 
+wrong in this documentation please submit an issue.
+
+## Stack
+
+This App use firebase as the single Authentication source of true. But apart from that we are using
+other technologies, below you can see the list that compose the Authentication module:
+
+- Firebase: Firestore Auth module
+- Nookies: Cookie manager to communicate the token to NextJS
+- NextJS ServerSideProps: Checking before the page is even render if the user is Auth, if we are using
+this props, means the page should not be visible for non-authenticated users.
+- Auth Custom Hook: Custom hook that create a listener for onAuthStateChanged to logout the user in case
+his token expire or the user choose to logout.
+
+## Description
+
+The Authentication is really simple, we use Firebase for Authentication and fom that point we have 2 ways
+for checking if the user is authenticated or not. One way is before rendering a page, in that case that
+validation happens on Backend. The other ways is during the execution on the client, in case the user
+lost his token or choose to logout.
+
+### Why do we have 2 ways of checking?
+
+Basically we don't want the user to go to a page, start rendering and then redirect him to login. This will
+happen if we only use the client validation. In the other case, if we only use backend validation, if the
+user lost his token after login, this event won't be possible to check till the user moves to another page.
+
+Because of this we decided to have 2 validations in place, the downside of this so far is that we have to 
+use serverSideProps in each page as currently NextJS does not allow serverSideProps on _page.
+
+## Workflow
+
+Below you will find how the data goes for a successfull authentication flow:
+
+1- User open the website.
+2- We check on Backend if there is a valid token, if not, redirect him to Login.
+3- If the user login in, then we ask for a token and save in cookies for future use.
+4- Next time the user navigate to another page, we will check that token and let him pass.
+5- In case his token expired or the user decided to logout, we remove the cookie.
+6- There is a listener always listening to changes on the Authentication model from Firebase, if the
+user lost his token, the listener will clean his connection and redirect him to Login.

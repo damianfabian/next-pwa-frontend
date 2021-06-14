@@ -1,5 +1,5 @@
 import store from 'store';
-import { addNotification } from 'stores/notifications/notiSlice';
+import { addNotification } from 'features/notifications/notificationSlice';
 
 const ErrorHandler = (err: Error): Promise<any> => {
     // eslint-disable-next-line

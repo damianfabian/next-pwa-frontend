@@ -16,7 +16,18 @@ import { Inbox, Drafts } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import LangToolbar from 'shared/langToolbar';
+import { GetServerSidePropsContext } from 'next';
 
+export async function getServerSideProps (ctx: GetServerSidePropsContext) {
+	console.log('ServerProps Working');
+	ctx.res.writeHead(302, { Location: 'http://www.google.com' });
+	ctx.res.end();
+	return {
+		props: {
+			message: "Fabian"
+		}
+	}
+}
 export default function Home() {
 	const { t } = useTranslation();
 	const router = useRouter();

@@ -9,6 +9,9 @@ import { AppProps } from 'next/app';
 import { Init } from '../i18n';
 import { LinearProgress } from '@material-ui/core';
 import { useRouter } from 'next/dist/client/router';
+import nookies from 'nookies';
+import { InferGetServerSidePropsType, GetServerSidePropsContext } from 'next';
+import { firebaseAdmin } from 'utils/db/admin';
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
 	const router = useRouter();
