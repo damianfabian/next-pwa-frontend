@@ -5,6 +5,7 @@ E-commerce App to buy products
 Working On
 
 -   [X] Link Firebase Auth with NextJs to Redirect when non-auth
+-   [X] Add basic role for registering
 -   [] Clean User object state
 -   [] Add register validations
 -   [] Persist Store in SessionStorage
@@ -26,7 +27,7 @@ Admin
 
 Stack
 
--   [ ] Guard/ Roles
+-   [X] Guard/ Roles
 -   [ ] Unit Test / e2e
 -   [ ] Statistics
 -   [ ] Firebase Storage

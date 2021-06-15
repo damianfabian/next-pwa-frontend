@@ -6,20 +6,20 @@ import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { TextField } from '@material-ui/core';
 import { authSelector, singUp } from 'features/auth/authSlice';
-import { useRouter } from 'next/router';
 import LangToolbar from 'shared/langToolbar';
 import { useAppDispatch, useAppSelector } from 'hooks/store';
 import { UserType } from 'types';
+import useNavigation from 'hooks/auth/navigation';
+import { ROUTE_HOME, ROUTE_UNAUTHENTICATED } from 'config';
 
 
 export default function Register() {
 	const { t, i18n } = useTranslation();
 	const auth = useAppSelector(authSelector);
 	const dispatch = useAppDispatch();
+	const [navigation, setPath] = useNavigation();
 
-	const router = useRouter();
-
-	const goToLogin = () => router.push('/login');
+	const goToLogin = () => setPath(ROUTE_UNAUTHENTICATED);
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -38,7 +38,7 @@ export default function Register() {
 	};
 
 	if (auth.isLogin) {
-		router.push('/home');
+		setPath(ROUTE_HOME);
 	}
 
 	return (

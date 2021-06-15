@@ -19,4 +19,14 @@ export const languages = [
     },
 ]
 
-export const REDIRECT_ROUTE_UNAUTHENTICATED = '/login';
+export const ROUTE_HOME = '/home';
+export const ROUTE_UNAUTHENTICATED = '/login';
+export const ROUTE_UNAUTHORIZED = '/home?unauthorized=1';
+export const DEFAULT_ROLE = 'user';
+export const BASE_API = 'http://localhost:3000/api';
+
+export const ENDPOINTS = {
+    AUTH: {
+        REGISTER: `${BASE_API}/v1/auth/register`
+    }
+}

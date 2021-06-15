@@ -1,17 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { addNotification } from 'features/notifications/notificationSlice';
-import { authenticate, closeSession, register, updateProfile } from 'services/userService';
+import { authenticate, closeSession, register } from 'services/userService';
 import { AppThunk, RootState } from 'store';
-import { ErrorType, FBUser, UserType } from 'types';
+import { FBUser, UserType } from 'types';
 import nookies from 'nookies';
+import { navigateTo } from 'features/navigation/navigationSlice';
+import { ROUTE_HOME, ROUTE_UNAUTHENTICATED } from 'config';
 
-export type UserState = {
+export type AuthState = {
     isLogin: Boolean;
     user?: FBUser;
     error?: string;
+    curPath?: string;
 };
 
-const initialState: UserState = {
+const initialState: AuthState = {
     isLogin: false
 };
 
@@ -23,6 +26,10 @@ export const counterSlice = createSlice({
             const { payload } = action;
             state.user = payload;
             state.isLogin = true;
+        },
+        setPath: (state, action: PayloadAction<string>) => {
+            const { payload } = action;
+            state.curPath = payload;
         },
         update: (state, action: PayloadAction<FBUser>) => {
             const { payload } = action;
@@ -52,6 +59,7 @@ export const login = (email: string, password: string): AppThunk => async (dispa
             }); 
             
             dispatch(setUser(tempUser));
+            dispatch(navigateTo(ROUTE_HOME));
         }
     } catch (e) {
         const message = 'Email does not exist';
@@ -67,14 +75,11 @@ export const singUp = (userInfo: UserType): AppThunk => async (dispatch) => {
             dispatch(onError(user.error!.message));
             dispatch(addNotification({ message: user.error!.message, isExpirable: true, type: 'warning' }));
         } else {
-            const newUser = user as FBUser;
-            updateProfile(newUser, userInfo.name).catch(er => {
-                console.log("Error updating name", er);
-                dispatch(addNotification({ message: er.error!.message, isExpirable: true, type: 'error' }));
-            });
+            dispatch(addNotification({ message: 'User has been created', isExpirable: true, type: 'success' }));
+            dispatch(navigateTo(ROUTE_UNAUTHENTICATED));
         }
     } catch (e) {
-        const message = 'Email does not exist';
+        const message = e.message;
         dispatch(onError(message));
         dispatch(addNotification({ message, isExpirable: true }));
     }
@@ -85,6 +90,7 @@ export const logout = (): AppThunk => async (dispatch) => {
         const res = await closeSession();
         nookies.set(undefined, 'token', '', { path: '/'});
         dispatch(logoff());
+        dispatch(navigateTo(ROUTE_UNAUTHENTICATED));
     } catch (e) {
         const message = 'Error login out';
         dispatch(addNotification({ message, isExpirable: true }));

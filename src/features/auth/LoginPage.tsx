@@ -11,29 +11,27 @@ import Head from 'next/head';
 import styled from 'styled-components';
 import { TextField } from '@material-ui/core';
 import LangToolbar from 'shared/langToolbar';
+import useNavigation from 'hooks/auth/navigation';
 
 
 export default function Login() {
 	const { t, i18n } = useTranslation();
-	const { user, isLogin, error } = useAppSelector(authSelector);
+	const { isLogin } = useAppSelector(authSelector);
 	const dispatch = useAppDispatch();
+	const [navigation, setPath] = useNavigation();
 
 	const router = useRouter();
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
-	const goToRegister = () => router.push('/register');
+	const goToRegister = () => setPath('/register');
 
 	const headerContent: ReactNode = (
 		<HeaderWrapper>
 			<Title>{t('Login')}</Title>
 		</HeaderWrapper>
 	);
-
-	if (isLogin) {
-		router.push('/home');
-	}
 
 	return (
 		<Body>

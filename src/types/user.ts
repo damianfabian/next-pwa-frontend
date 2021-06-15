@@ -3,3 +3,8 @@ export type UserType = {
     email: string;
     password: string;
 }
+
+export type UserUid = {
+    uid: string;
+}
+
